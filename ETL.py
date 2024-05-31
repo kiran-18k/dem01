@@ -9,15 +9,18 @@ def extract_data_from_api(api_url):
         return df
     else:
         raise Exception(f"Failed to fetch data: {response.status_code}")
-    
-
-
 
 def transform_data(df):
-    # Example transformation: Keep only certain columns and create a new column
-    df_transformed = df[['userId', 'id', 'title']].copy()  # Keep only selected columns
-    df_transformed['title_length'] = df_transformed['title'].apply(len)  # Add a new column for title length
+    # Conflicting Change 1: Keep only 'userId', 'title', and add 'body_length'
+    df_transformed = df[['userId', 'title']].copy()  # Keep selected columns
+    df_transformed['body_length'] = df_transformed['body'].apply(len)  # Add a new column for body length
     return df_transformed
+
+def quality_check(df):
+    # QC step to verify that the DataFrame is not empty after transformation
+    if df.empty:
+        raise ValueError("Transformed data is empty. Quality check failed.")
+    print("Quality check passed. Transformed data is not empty.")
 
 if __name__ == "__main__":
     api_url = "https://jsonplaceholder.typicode.com/posts"  # Sample API for demonstration
@@ -25,6 +28,9 @@ if __name__ == "__main__":
     
     # Transform the data
     transformed_data = transform_data(data)
+    
+    # Perform quality check
+    quality_check(transformed_data)
     
     # Save the transformed data to a CSV file
     transformed_data.to_csv('transformed_data.csv', index=False)
