@@ -11,10 +11,10 @@ def extract_data_from_api(api_url):
         raise Exception(f"Failed to fetch data: {response.status_code}")
 
 def transform_data(df):
-    # Conflicting Change 1: Keep only 'userId', 'title', and add 'body_length'
-    cols = ['weekid','Weekending']
-    df_transformed = df_transformed[cols] # Keep selected columns
-    df_transformed['body_length'] = df_transformed['body'].apply(len)  # Add a new column for body length
+    # Conflicting Change in FTE02 branch
+    cols = ['userId', 'title']  # Changed the columns to 'userId' and 'title'
+    df_transformed = df[cols].copy()  # Keep selected columns
+    df_transformed['title_length'] = df_transformed['title'].apply(len)  # Add a new column for title length
     return df_transformed
 
 def quality_check(df):
