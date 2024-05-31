@@ -9,6 +9,7 @@ def extract_data_from_api(api_url):
         return df
     else:
         raise Exception(f"Failed to fetch data: {response.status_code}")
+    #print("hello")
 
 def transform_data(df):
     # Conflicting Change in FTE02 branch
