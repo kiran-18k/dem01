@@ -12,7 +12,8 @@ def extract_data_from_api(api_url):
 
 def transform_data(df):
     # Conflicting Change 1: Keep only 'userId', 'title', and add 'body_length'
-    df_transformed = df[['userId', 'title']].copy()  # Keep selected columns
+    cols = ['weekid','Weekending']
+    df_transformed = df_transformed[cols] # Keep selected columns
     df_transformed['body_length'] = df_transformed['body'].apply(len)  # Add a new column for body length
     return df_transformed
 
