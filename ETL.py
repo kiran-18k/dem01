@@ -13,9 +13,15 @@ def extract_data_from_api(api_url):
 
 def transform_data(df):
     # Conflicting Change in FTE02 branch
+
     cols = ['userId', 'id']  # Changed the columns to 'userId' and 'id'
     df_transformed = df[cols].copy()  # Keep selected columns
     df_transformed['id_length'] = df_transformed['id'].apply(len)  # Add a new column for id length
+=======
+    cols = ['userId', 'title']  # Changed the columns to 'userId' and 'title'
+    df_transformed = df[cols].copy()  # Keep selected columns
+    df_transformed['title_length'] = df_transformed['title'].apply(len)  # Add a new column for title length
+
     return df_transformed
 
 def quality_check(df):
